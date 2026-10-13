@@ -1,0 +1,502 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Денис</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500&family=Onest:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: асимметричная сетка на тёмном графите, крупный лёгкий display-шрифт,
+   справа от имени каменная композиция из плит и сферы, тонкие линии вместо карточных теней. */
+:root {
+  color-scheme: dark;
+  --bg: #161615;
+  --surface: #1d1d1b;
+  --surface-2: #232321;
+  --line: #333230;
+  --text: #f3f1ec;
+  --muted: #a9a59d;
+  --accent: #c9c2b4;
+  --display: "Unbounded", "Onest", system-ui, sans-serif;
+  --body: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --maxw: 1180px;
+  --gutter: clamp(16px, 5vw, 48px);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  padding-inline: var(--gutter);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+.wrap { max-width: var(--maxw); margin-inline: auto; }
+
+/* nav */
+.nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  margin-inline: calc(var(--gutter) * -1);
+  padding: 14px var(--gutter);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.logo { font-family: var(--display); font-size: 13px; letter-spacing: .28em; font-weight: 400; }
+.nav ul { display: flex; gap: clamp(14px, 3vw, 36px); list-style: none; margin: 0; padding: 0; }
+.nav a.link { font-size: 14px; color: var(--muted); padding: 6px 0; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+.nav a.link:hover { color: var(--text); }
+.nav a.link.on { color: var(--text); border-bottom-color: var(--accent); }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 46px; padding: 0 22px;
+  font: 500 15px/1 var(--body);
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--text); background: transparent;
+  transition: background .3s, border-color .3s, color .3s;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.solid { background: var(--text); color: var(--bg); border-color: var(--text); }
+.btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+.btn .arr { display: inline-block; transition: transform .3s; }
+.btn:hover .arr { transform: translate(3px, -3px); }
+.btn.down:hover .arr { transform: translateY(3px); }
+
+/* hero */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 64px); align-items: center;
+  padding-block: clamp(48px, 9vw, 110px) clamp(40px, 6vw, 72px);
+}
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.hero h1 { font-family: var(--display); font-weight: 300; font-size: clamp(48px, 9.5vw, 120px); line-height: 1; letter-spacing: -.02em; margin-top: 22px; }
+.hero .tag { font-family: var(--display); font-weight: 300; font-size: clamp(17px, 2.6vw, 30px); line-height: 1.35; color: var(--muted); margin-top: 18px; }
+.hero .lead { max-width: 46ch; margin-top: 28px; color: var(--muted); }
+.hero .lead span { color: var(--text); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.hero > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) backwards; }
+.hero .copy { animation-delay: .05s; }
+.hero .stage { animation: fade 1.6s ease .2s backwards; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@keyframes fade { from { opacity: 0; } }
+
+/* stone composition */
+.stage { position: relative; width: 100%; max-width: 560px; margin-inline: auto; aspect-ratio: 1 / 1; --mx: 0; --my: 0; }
+.stage .layer { position: absolute; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+.floor { left: 4%; right: 4%; bottom: 7%; height: 12%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(0,0,0,.65), transparent 70%); filter: blur(6px); }
+.slab-a {
+  left: 8%; bottom: 14%; width: 30%; height: 66%;
+  background: linear-gradient(100deg, #3a3936 0%, #2a2a28 45%, #1b1b1a 100%);
+  border-top: 1px solid rgba(255,255,255,.18);
+  border-left: 1px solid rgba(255,255,255,.1);
+  box-shadow: 18px 24px 40px rgba(0,0,0,.45);
+  transform: translate(calc(var(--mx) * -8px), calc(var(--my) * -6px));
+}
+.slab-b {
+  left: 34%; bottom: 14%; width: 34%; height: 48%;
+  background: linear-gradient(110deg, #484743 0%, #302f2d 50%, #1d1d1b 100%);
+  border-top: 1px solid rgba(255,255,255,.22);
+  border-left: 1px solid rgba(255,255,255,.12);
+  box-shadow: 18px 24px 40px rgba(0,0,0,.45);
+  transform: translate(calc(var(--mx) * 4px), calc(var(--my) * 3px));
+}
+.slab-c {
+  left: 62%; bottom: 14%; width: 30%; height: 22%;
+  background: linear-gradient(120deg, #3d3c39, #232321);
+  border-top: 1px solid rgba(255,255,255,.2);
+  box-shadow: 14px 18px 30px rgba(0,0,0,.45);
+  transform: translate(calc(var(--mx) * 10px), calc(var(--my) * 5px));
+}
+.sphere {
+  left: 42%; bottom: 46%; width: 38%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, #8b8983 0%, #4a4945 30%, #262624 62%, #111110 100%);
+  box-shadow: 0 30px 50px rgba(0,0,0,.55), inset -10px -14px 30px rgba(0,0,0,.45);
+  transform: translate(calc(var(--mx) * 16px), calc(var(--my) * 10px));
+}
+.ring {
+  left: 30%; bottom: 34%; width: 62%; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid rgba(201,194,180,.28);
+  transform: translate(calc(var(--mx) * -4px), calc(var(--my) * -3px));
+}
+.stage .cap { position: absolute; right: 0; bottom: -2px; font-family: var(--mono); font-size: 11px; letter-spacing: .18em; color: var(--muted); }
+
+/* sections */
+section { padding-block: clamp(56px, 9vw, 112px); border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-bottom: clamp(32px, 5vw, 56px); }
+.sec-head h2 { font-family: var(--display); font-weight: 300; font-size: clamp(28px, 4.6vw, 52px); line-height: 1.12; letter-spacing: -.015em; }
+.sec-head p { max-width: 58ch; color: var(--muted); }
+
+.grid { display: grid; gap: 18px; }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 26px 24px 28px; min-width: 0;
+  transition: transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s, background .4s;
+}
+.card:hover { transform: translateY(-4px); border-color: #4a4944; background: var(--surface-2); }
+.card h3 { font-family: var(--display); font-weight: 400; font-size: 16px; line-height: 1.35; margin-bottom: 12px; }
+.card p { color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+.tick { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; color: var(--accent); display: block; margin-bottom: 18px; }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 80px); }
+.about .text { display: grid; gap: 20px; color: var(--muted); max-width: 60ch; }
+.about .text p:first-child { color: var(--text); font-size: 19px; }
+.markers { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); align-self: start; }
+.markers li { display: flex; justify-content: space-between; gap: 16px; padding: 16px 2px; border-bottom: 1px solid var(--line); font-size: 16px; }
+.markers li span { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .1em; align-self: center; }
+
+/* projects */
+.proj { display: flex; flex-direction: column; gap: 0; }
+.proj .stack { margin-top: auto; padding-top: 22px; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--accent); letter-spacing: .02em; }
+.proj p { margin-bottom: 4px; }
+
+/* approach */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; counter-reset: s; border-top: 1px solid var(--line); }
+.step { padding: 26px 24px 8px 0; position: relative; min-width: 0; }
+.step + .step { padding-left: 24px; border-left: 1px solid var(--line); }
+.step .n { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: .14em; display: block; margin-bottom: 16px; }
+.step h3 { font-family: var(--display); font-weight: 400; font-size: 17px; margin-bottom: 10px; }
+.step p { color: var(--muted); font-size: 15.5px; }
+.note { margin-top: 32px; color: var(--muted); font-size: 15px; max-width: 62ch; }
+
+/* notes */
+.notes { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.notes li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); font-size: clamp(17px, 2.1vw, 21px); line-height: 1.45; transition: padding-left .35s; }
+.notes li:hover { padding-left: 10px; }
+.notes li span { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .1em; }
+
+/* contacts */
+.contact { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 80px); align-items: end; }
+.contact h2 { font-family: var(--display); font-weight: 300; font-size: clamp(34px, 6vw, 72px); line-height: 1.05; letter-spacing: -.02em; margin-top: 18px; }
+.contact .say { color: var(--muted); max-width: 44ch; }
+.contact .actions { margin-top: 28px; }
+
+footer { border-top: 1px solid var(--line); margin-inline: calc(var(--gutter) * -1); padding: 26px var(--gutter) 40px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: center; justify-content: space-between; font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--muted); }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+footer a { transition: color .3s; padding: 6px 0; }
+footer a:hover { color: var(--text); }
+
+/* scroll reveal: смещение без прозрачности, содержимое видно сразу */
+.js .reveal { transform: translateY(16px); transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.js .reveal.in { transform: none; }
+
+@media (max-width: 960px) {
+  .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step:nth-child(3) { padding-left: 0; border-left: 0; }
+  .step:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 26px; }
+}
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .hero, .about, .contact { grid-template-columns: minmax(0, 1fr); }
+  .stage { max-width: 420px; }
+  .g2 { grid-template-columns: minmax(0, 1fr); }
+  .actions .btn { flex: 1 1 100%; justify-content: center; }
+  .nav a.link { font-size: 13px; }
+}
+@media (max-width: 560px) {
+  .g4 { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .step, .step + .step { padding-left: 0; border-left: 0; }
+  .step + .step { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 26px; }
+  .logo { display: none; }
+  .nav .wrap { justify-content: center; }
+  .notes li { grid-template-columns: 40px minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .js .reveal { transform: none; }
+}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">DENIS</a>
+    <ul>
+      <li><a class="link" href="#about">Обо мне</a></li>
+      <li><a class="link" href="#projects">Проекты</a></li>
+      <li><a class="link" href="#thinking">Мышление</a></li>
+      <li><a class="link" href="#contacts">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div class="copy">
+        <p class="eyebrow">Personal space · 2026</p>
+        <h1>ДЕНИС</h1>
+        <p class="tag">Изучаю. Создаю. Понимаю.</p>
+        <p class="lead">Я интересуюсь технологиями, искусственным интеллектом и тем, как устроены человек и мир. <span>Изучаю сложное, создаю цифровые продукты и ищу более ясные способы понимать реальность.</span></p>
+        <div class="actions">
+          <a class="btn solid" href="#projects">Мои проекты <span class="arr">↗</span></a>
+          <a class="btn down" href="#about">Обо мне <span class="arr">↓</span></a>
+        </div>
+      </div>
+      <div class="stage" id="stage" aria-hidden="true">
+        <div class="layer floor"></div>
+        <div class="layer slab-a"></div>
+        <div class="layer slab-b"></div>
+        <div class="layer slab-c"></div>
+        <div class="layer ring"></div>
+        <div class="layer sphere"></div>
+        <span class="cap">FORM / MASS / LIGHT</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section id="about">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Обо мне</p>
+        <h2>Кто я</h2>
+      </div>
+      <div class="about reveal">
+        <div class="text">
+          <p>Я изучаю информационную безопасность и интересуюсь тем, как устроены технологии, цифровые продукты и человеческое мышление.</p>
+          <p>Мне нравится разбираться в сложных системах, искать закономерности, проверять идеи и превращать абстрактные концепции в работающие решения.</p>
+          <p>За пределами технологий меня интересуют философия, психология и вопросы о том, как человек воспринимает мир, принимает решения и находит внутреннее равновесие.</p>
+          <p>Этот сайт объединяет то, что я изучаю, создаю и постепенно понимаю.</p>
+        </div>
+        <ul class="markers">
+          <li>Технологии и безопасность <span>01</span></li>
+          <li>Искусственный интеллект <span>02</span></li>
+          <li>Философия и психология <span>03</span></li>
+          <li>Самопознание и развитие <span>04</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="thinking">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Как я мыслю</p>
+        <h2>Принципы, с которыми я работаю</h2>
+        <p>Это не окончательные ответы. Я оставляю место для сомнений и готов пересматривать взгляды.</p>
+      </div>
+      <div class="grid g4">
+        <article class="card reveal">
+          <span class="tick">I</span>
+          <h3>Понимать глубже</h3>
+          <p>Мне интересны причины, а не только внешние проявления. Хочу понимать, как работает система, прежде чем пытаться её изменить.</p>
+        </article>
+        <article class="card reveal">
+          <span class="tick">II</span>
+          <h3>Мыслить самостоятельно</h3>
+          <p>Авторитет, популярность и уверенность человека не заменяют аргументов. Я стараюсь проверять идеи, в том числе собственные.</p>
+        </article>
+        <article class="card reveal">
+          <span class="tick">III</span>
+          <h3>Оставаться открытым</h3>
+          <p>Я не считаю свои взгляды окончательными. Новые данные и опыт могут изменить моё понимание вещей.</p>
+        </article>
+        <article class="card reveal">
+          <span class="tick">IV</span>
+          <h3>Не превращать жизнь в вечный проект</h3>
+          <p>Развитие важно, но не каждая минута обязана приносить результат. Мне интересен баланс между стремлением что-то изменить и способностью принимать настоящее.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="interests">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Области интереса</p>
+        <h2>Четыре направления, которые связаны между собой</h2>
+      </div>
+      <div class="grid g4">
+        <article class="card reveal">
+          <h3>Технологии</h3>
+          <p>Информационная безопасность, программирование, архитектура систем и автоматизация.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Искусственный интеллект</h3>
+          <p>Языковые модели, интеллектуальные помощники, память и взаимодействие человека с ИИ.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Философия</h3>
+          <p>Рациональность, природа опыта, восприятие реальности и самостоятельное мышление.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Психология</h3>
+          <p>Внимание, привычки, эмоции, принятие и более осознанное отношение к жизни.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Что я создаю</p>
+        <h2>Проекты и эксперименты</h2>
+        <p>Интерес к идеям, который приводит к действиям.</p>
+      </div>
+      <div class="grid g4">
+        <article class="card proj reveal">
+          <span class="tick">01 / AI PRODUCTS</span>
+          <h3>ИИ-ассистенты</h3>
+          <p>Создание Telegram-ботов с персонализацией, историей диалога, настройками и интеграциями с языковыми моделями.</p>
+          <div class="stack">Python · API · Telegram · LLM</div>
+        </article>
+        <article class="card proj reveal">
+          <span class="tick">02 / WEB</span>
+          <h3>Веб-продукты</h3>
+          <p>Лендинги, интерфейсы и небольшие приложения, в которых функциональность сочетается с понятным дизайном.</p>
+          <div class="stack">HTML · CSS · JavaScript</div>
+        </article>
+        <article class="card proj reveal">
+          <span class="tick">03 / AUTOMATION</span>
+          <h3>Автоматизация</h3>
+          <p>Инструменты для упрощения повторяющихся задач, обработки информации и организации рабочих процессов.</p>
+          <div class="stack">Python · API · интеграции</div>
+        </article>
+        <article class="card proj reveal">
+          <span class="tick">04 / EXPERIMENTS</span>
+          <h3>Личные эксперименты</h3>
+          <p>Прототипы, идеи и небольшие исследования на стыке технологий, поведения человека и искусственного интеллекта.</p>
+          <div class="stack">Исследование · Прототипирование · Анализ</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="approach">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Мой подход</p>
+        <h2>От вопроса к пониманию</h2>
+      </div>
+      <div class="steps reveal">
+        <div class="step">
+          <span class="n">ШАГ 1</span>
+          <h3>Задать вопрос</h3>
+          <p>Сформулировать проблему и понять, какой результат действительно нужен.</p>
+        </div>
+        <div class="step">
+          <span class="n">ШАГ 2</span>
+          <h3>Разобраться в системе</h3>
+          <p>Изучить устройство, ограничения, зависимости и возможные объяснения.</p>
+        </div>
+        <div class="step">
+          <span class="n">ШАГ 3</span>
+          <h3>Проверить на практике</h3>
+          <p>Создать прототип, провести эксперимент или сравнить альтернативы.</p>
+        </div>
+        <div class="step">
+          <span class="n">ШАГ 4</span>
+          <h3>Сделать выводы</h3>
+          <p>Оценить результат, найти слабые места и определить следующий шаг.</p>
+        </div>
+      </div>
+      <p class="note reveal">Это не идеальный процесс, которому я следую всегда. Это подход, который я стараюсь развивать.</p>
+    </section>
+
+    <section id="notes">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Заметки и идеи</p>
+        <h2>Вопросы, над которыми я думаю</h2>
+        <p>Личный журнал мыслей. Тексты появятся здесь по мере того, как сложатся.</p>
+      </div>
+      <ul class="notes reveal">
+        <li><span>01</span>Почему понимание не всегда приводит к изменению поведения</li>
+        <li><span>02</span>Можно ли мыслить рационально, не подавляя эмоции?</li>
+        <li><span>03</span>Что меняется, когда перестаёшь воспринимать каждую мысль как факт</li>
+        <li><span>04</span>Как устроить память ИИ-ассистента</li>
+        <li><span>05</span>Где проходит граница между продуктивностью и бесконечной погоней за улучшением себя</li>
+      </ul>
+    </section>
+
+    <section id="contacts">
+      <div class="contact reveal">
+        <div>
+          <p class="eyebrow">Открыт к новому</p>
+          <h2>Давай обсудим идеи.</h2>
+        </div>
+        <div>
+          <p class="say">Мне интересны содержательные разговоры, совместные проекты и новые способы смотреть на привычные вещи.</p>
+          <div class="actions">
+            <a class="btn solid" href="#contacts">Telegram <span class="arr">↗</span></a>
+            <a class="btn" href="#contacts">GitHub <span class="arr">↗</span></a>
+            <a class="btn" href="#contacts">Email <span class="arr">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>DENIS · PERSONAL WEBSITE · 2026</span>
+    <nav>
+      <a href="#about">Обо мне</a>
+      <a href="#projects">Проекты</a>
+      <a href="#thinking">Мышление</a>
+      <a href="#contacts">Контакты</a>
+      <a href="#top">Наверх ↑</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // появление блоков при прокрутке
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // подсветка текущего раздела
+  var links = {};
+  document.querySelectorAll('.nav a.link').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var map = { about: 'about', thinking: 'thinking', interests: 'thinking', projects: 'projects', approach: 'projects', notes: 'thinking', contacts: 'contacts' };
+  if ('IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var key = map[e.target.id];
+        Object.keys(links).forEach(function (k) { links[k].classList.toggle('on', k === key); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section[id]').forEach(function (s) { so.observe(s); });
+  }
+
+  // медленный параллакс каменной композиции
+  var stage = document.getElementById('stage');
+  var fine = window.matchMedia('(pointer: fine)').matches;
+  if (stage && fine && !reduce) {
+    window.addEventListener('mousemove', function (e) {
+      var x = (e.clientX / window.innerWidth - 0.5) * 2;
+      var y = (e.clientY / window.innerHeight - 0.5) * 2;
+      stage.style.setProperty('--mx', x.toFixed(3));
+      stage.style.setProperty('--my', y.toFixed(3));
+    }, { passive: true });
+  }
+})();
+</script>
+
+</body></html>
